@@ -39,7 +39,7 @@
     </select>
 
     <!--编辑会员-->
-    <update id="edit" parameterType="com.itheima.pojo.Member">
+    <update id="editSave" parameterType="com.itheima.pojo.Member">
         update t_member
         <set>
             <if test="fileNumber != null">
@@ -94,5 +94,12 @@
     <!--总会员数-->
     <select id="findMemberTotalCount" resultType="int">
         select count(id) from t_member
+    </select>
+<!--分页查询-->
+    <select id="selectPageCondition" parameterType="string" resultType="com.itheima.pojo.Member">
+        select * from t_member
+        <if test="value != null and value.length>0">
+            where name=#{value} or phoneNumber=#{value}
+        </if>
     </select>
 </mapper>

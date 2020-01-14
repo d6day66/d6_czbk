@@ -17,4 +17,8 @@ public interface MemberDao {
     public Integer findMemberCountByDate(String date);
     public Integer findMemberCountAfterDate(String date);
     public Integer findMemberTotalCount();
+
+    Page<Member> selectPageCondition(String queryString);
+
+    void editSave(Member member);
 }
