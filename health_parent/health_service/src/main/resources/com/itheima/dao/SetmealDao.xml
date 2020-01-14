@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itheima.dao.SetmealDao">
+    <resultMap id="base" type="com.itheima.pojo.Setmeal">
+        <id column="id" property="id"></id>
+    </resultMap>
+    <resultMap id="findGroups" type="com.itheima.pojo.Setmeal" extends="base">
+        <collection property="checkGroups"
+                    javaType="ArrayList"
+                    ofType="com.itheima.pojo.CheckGroup"
+                    select="com.itheima.dao.CheckGroupDao.findBySetmealId"
+                    column="id">
+        </collection>
+    </resultMap>
+
+    <insert id="add" parameterType="com.itheima.pojo.Setmeal">
+        <selectKey resultType="java.lang.Integer" order="AFTER"
+                   keyProperty="id">
+          SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_setmeal (code,name,sex,age,helpCode,price,remark,attention,img)
+        values
+        (#{code},#{name},#{sex},#{age},#{helpCode},#{price},#{remark},#{attention},#{img})
+    </insert>
+    <!--绑定套餐和检查组多对多关系-->
+    <insert id="setSetmealAndCheckGroup" parameterType="hashmap">
+        insert into t_setmeal_checkgroup
+       (setmeal_id,checkgroup_id)
+       values
+      (#{setmeal_id},#{checkgroup_id})
+    </insert>
+
+    <select id="selectByCondition" parameterType="string"
+            resultType="com.itheima.pojo.Setmeal">
+        select * from t_setmeal
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
+    <select id="findAll" resultType="com.itheima.pojo.Setmeal">
+        SELECT * FROM `t_setmeal`
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="findGroups">
+        SELECT * FROM `t_setmeal` where id=#{id}
+    </select>
+
+    <select id="findSetmealCount" resultType="map">
+        SELECT s.name,COUNT(o.id) value FROM t_order o,t_setmeal s WHERE o.setmeal_id=s.id GROUP BY o.setmeal_id
+    </select>
+
+</mapper>
