@@ -9,4 +9,6 @@ public interface MenuDao {
     public LinkedHashSet<Menu> findByRoleId(Integer roleId);
 
     List<Menu> findAll();
+
+    void deleteRoleAndMenu(Integer id);
 }

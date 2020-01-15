@@ -6,8 +6,11 @@ package com.itheima.constant;
 public class MessageConstant {
     public static final String DELETE_CHECKITEM_FAIL = "删除检查项失败";
     public static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
-    public static final String DELETE_ROLE_FAIL = "删除检查项失败";
-    public static final String DELETE_ROLE_SUCCESS = "删除检查项成功";
+    public static final String DELETE_ROLE_FAIL = "删除角色失败";
+    public static final String DELETE_ROLE_SUCCESS = "删除角色成功";
+    public static final String EDIT_ROLE_SUCCESS = "编辑角色成功";
+    public static final String EDIT_ROLE_FAIL = "编辑角色失败";
+
     public static final String ADD_CHECKITEM_SUCCESS = "新增检查项成功";
     public static final String ADD_CHECKITEM_FAIL = "新增检查项失败";
     public static final String ADD_ROLE_FAIL = "新增角色失败";

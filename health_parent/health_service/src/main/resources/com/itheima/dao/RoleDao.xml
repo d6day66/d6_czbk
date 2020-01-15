@@ -14,17 +14,17 @@
                     column="id">
         </collection>
         <collection property="menus"
-        ofType="com.itheima.pojo.Menu"
-        select="com.itheima.dao.MenuDao.findByRoleId"
-        column="id">
+                    ofType="com.itheima.pojo.Menu"
+                    select="com.itheima.dao.MenuDao.findByRoleId"
+                    column="id">
         </collection>
     </resultMap>
     <!--<resultMap id="findMenus" type="com.itheima.pojo.Role" extends="base">-->
-        <!--<collection property="menus"-->
-                    <!--ofType="com.itheima.pojo.Menu"-->
-                    <!--select="com.itheima.dao.MenuDao.findByRoleId"-->
-                    <!--column="id">-->
-        <!--</collection>-->
+    <!--<collection property="menus"-->
+    <!--ofType="com.itheima.pojo.Menu"-->
+    <!--select="com.itheima.dao.MenuDao.findByRoleId"-->
+    <!--column="id">-->
+    <!--</collection>-->
     <!--</resultMap>-->
 
     <!--增加角色信息-->
@@ -47,6 +47,28 @@
         insert into t_role_menu (role_id,menu_id)
         values (#{role_id},#{menu_id})
     </insert>
+    <!--编辑-->
+    <update id="edit" parameterType="com.itheima.pojo.Role">
+        update t_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+
+            <if test="keyword != null">
+                keyword = #{keyword},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--根据前台传递的角色Id删除角色-->
+    <delete id="deleteById" parameterType="int">
+        delete from t_role where id=#{id}
+
+    </delete>
     <!--根据用户ID查询关联的角色-->
     <select id="findByUserId" parameterType="int" resultType="com.itheima.pojo.Role">
         select r.*
@@ -61,5 +83,14 @@
         <if test="value != null and value.length > 0">
             where name = #{value}
         </if>
+    </select>
+
+    <!--根据roleid查询菜单ids-->
+    <select id="queryRoleWithMenu" parameterType="int" resultType="java.lang.Integer">
+        select menu_id from t_role_menu where role_id=#{role_id}
+    </select>
+    <!--根据roleid查询权限ids-->
+    <select id="queryRoleWithpermission" parameterType="int" resultType="java.lang.Integer">
+        select permission_id from t_role_menu where role_id=#{role_id}
     </select>
 </mapper>

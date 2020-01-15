@@ -54,16 +54,30 @@ public class RoleController {
         }
         return new Result(true, MessageConstant.DELETE_ROLE_SUCCESS);
     }
-//
-//    @RequestMapping("/findAll")
-//    public Result findAll(){
-//        List<CheckGroup> checkGroupList = checkGroupService.findAll();
-//        if(checkGroupList != null && checkGroupList.size() > 0){
-//            Result result = new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS,checkGroupList);
-//            return result;
-//        }
-//        return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
-//    }
+//    弹出编辑通过roleId获取menuIds
+    @RequestMapping("/queryRoleWithMenu")
+    public List<Integer> queryRoleWithMenu(Integer role_id){
+        List<Integer> list=roleService.queryRoleWithMenu(role_id);
+        return list;
+    }
+    //    弹出编辑通过roleId获取permissionIds
+    @RequestMapping("/queryRoleWithpermission")
+    public List<Integer> queryRoleWithpermission(Integer role_id){
+        List<Integer> list=roleService.queryRoleWithpermission(role_id);
+        return list;
+    }
 
+    //    编辑
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody Role role, Integer[] permissionIds,Integer[] menuIds){
+       try {
+
+           roleService.edit(role, permissionIds, menuIds);
+           return new Result(true, MessageConstant.EDIT_ROLE_SUCCESS);
+       }catch (Exception e){
+           e.printStackTrace();
+           return new Result(false, MessageConstant.EDIT_ROLE_FAIL);
+       }
+    }
 
 }

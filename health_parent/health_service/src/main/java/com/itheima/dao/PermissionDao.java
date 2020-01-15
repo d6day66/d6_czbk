@@ -12,6 +12,7 @@ public interface PermissionDao {
 
     List<Permission> findAll();
 
+    void deleteRoleAndPermission(Integer id);
     void add(Permission permission);
     public Page<Permission> selectPageCondition(String querryString);
     void editSave(Permission permission);
