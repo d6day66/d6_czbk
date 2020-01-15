@@ -6,11 +6,20 @@ package com.itheima.constant;
 public class MessageConstant {
     public static final String DELETE_CHECKITEM_FAIL = "删除检查项失败";
     public static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
+    public static final String DELETE_ROLE_FAIL = "删除检查项失败";
+    public static final String DELETE_ROLE_SUCCESS = "删除检查项成功";
     public static final String ADD_CHECKITEM_SUCCESS = "新增检查项成功";
     public static final String ADD_CHECKITEM_FAIL = "新增检查项失败";
+    public static final String ADD_ROLE_FAIL = "新增角色失败";
+    public static final String ADD_ROLE_SUCCESS = "新增角色成功";
     public static final String EDIT_CHECKITEM_FAIL = "编辑检查项失败";
     public static final String EDIT_CHECKITEM_SUCCESS = "编辑检查项成功";
+
     public static final String QUERY_CHECKITEM_SUCCESS = "查询检查项成功";
+    public static final String QUERY_PEMISSION_SUCCESS = "查询权限成功";
+    public static final String QUERY_PEMISSION_FAIL = "查询权限失败";
+    public static final String QUERY_MENU_FAIL = "查询菜单失败";
+    public static final String QUERY_MENU_SUCCESS = "查询菜单成功";
     public static final String QUERY_CHECKITEM_FAIL = "查询检查项失败";
     public static final String UPLOAD_SUCCESS = "上传成功";
     public static final String ADD_CHECKGROUP_FAIL = "新增检查组失败";

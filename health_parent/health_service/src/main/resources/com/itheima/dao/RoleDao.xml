@@ -2,10 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itheima.dao.RoleDao">
+    <!--角色基础映射map-->
+    <resultMap id="base" type="com.itheima.pojo.Role">
+        <id column="id" property="id"></id>
+    </resultMap>
+    <!--角色权限映射map-->
+    <resultMap id="findPermissionsAndMenus" type="com.itheima.pojo.Role" extends="base">
+        <collection property="permissions"
+                    ofType="com.itheima.pojo.Permission"
+                    select="com.itheima.dao.PermissionDao.findByRoleId"
+                    column="id">
+        </collection>
+        <collection property="menus"
+        ofType="com.itheima.pojo.Menu"
+        select="com.itheima.dao.MenuDao.findByRoleId"
+        column="id">
+        </collection>
+    </resultMap>
+    <!--<resultMap id="findMenus" type="com.itheima.pojo.Role" extends="base">-->
+        <!--<collection property="menus"-->
+                    <!--ofType="com.itheima.pojo.Menu"-->
+                    <!--select="com.itheima.dao.MenuDao.findByRoleId"-->
+                    <!--column="id">-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--增加角色信息-->
+
+    <insert id="add" parameterType="com.itheima.pojo.Role">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into t_role(name,keyword,description)
+        values (#{name},#{keyword},#{description})
+    </insert>
+
+    <!--增加角色权限中间表-->
+    <insert id="addT_role_permission" parameterType="map">
+        insert into t_role_permission (role_id,permission_id)
+        values (#{role_id},#{permission_id})
+    </insert>
+    <!--增加角色菜单中间表-->
+    <insert id="addT_role_menu" parameterType="map">
+        insert into t_role_menu (role_id,menu_id)
+        values (#{role_id},#{menu_id})
+    </insert>
     <!--根据用户ID查询关联的角色-->
     <select id="findByUserId" parameterType="int" resultType="com.itheima.pojo.Role">
         select r.*
           from t_role r,t_user_role ur
           where r.id = ur.role_id and ur.user_id = #{user_id}
+    </select>
+
+
+    <select id="selectByCondition" parameterType="string"
+            resultType="com.itheima.pojo.Role">
+        select * from t_role
+        <if test="value != null and value.length > 0">
+            where name = #{value}
+        </if>
     </select>
 </mapper>
