@@ -34,12 +34,10 @@ public class SpringSecurityUserService implements UserDetailsService {
             Set<Permission> permissions = role.getPermissions();
             for(Permission permission : permissions){
                 //授权
-                list.add(new
-                        SimpleGrantedAuthority(permission.getKeyword()));
+                list.add(new SimpleGrantedAuthority(permission.getKeyword()));
             }
         }
-        org.springframework.security.core.userdetails.User userDetails =
-                new org.springframework.security.core.userdetails.User(username, user.getPassword(), list);
+        org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(username, user.getPassword(), list);
         return userDetails;
     }
 }
